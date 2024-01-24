@@ -3,16 +3,18 @@ const router = express.Router();
 import {
     authUser,
     registerUser,
-    logoutUser } 
+    logoutUser,
+    getUserByID 
+} 
     from '../controllers/userController.js';
 
 import { protect, admin } from '../middleware/authMiddleware.js';
 
 
-router.post('/login', authUser);
+router.post('/auth', authUser);
 router.post('/register', registerUser);
 router.post('/logout', logoutUser);
-//router.route('/').get(getUserByID);
+router.route('/').get(protect, admin, getUserByID);
 
 
 export default router;

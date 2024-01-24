@@ -9,12 +9,7 @@ const getBuses = asyncHandler(async (req, res) => {
     res.json(buses);
 });
 
-// @desc Fetch a trip
-// @desc GET/api/trip
-// @access public
-const getTrips = asyncHandler(async (req, res) => {
-    res.json(trips);
-});
+
 // @desc   Fetch a buses
 // @route  GET / api/trip/:id
 // @access public

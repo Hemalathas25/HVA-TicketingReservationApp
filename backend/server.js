@@ -7,6 +7,7 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import busRoutes from "./routes/busRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
+import tripRoutes from "./routes/tripRoutes.js";
 const port = process.env.PORT || 5000;
 
 connectDB(); // Connect to MongoDB
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 app.use('/api/buses', busRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/booking', bookingRoutes);
+app.use('/api/trip',tripRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
