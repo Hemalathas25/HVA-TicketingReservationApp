@@ -1,5 +1,5 @@
-import Joi from 'joi';
 import Bus from '../models/busModel.js';
+import Journey from '../models/journeyModel.js';
 
 const checkBusOwner = async (req, res, next) => {
 	try{
@@ -20,17 +20,8 @@ const checkBusOwner = async (req, res, next) => {
     }
 };
 
-const busValidation = (data) => {
-	const busSchema = Joi.object({
-		busNumber: Joi.string().required(),
-		seats: Joi.number().required(),
-		busType: Joi.boolean(),
-        amenities: Joi.string().required(),
-	});
-	return busSchema.validate(data)
-}
 
-const checkSeatsNumber = async (req,res,next) => {
+const checkJourneySeatNo = async (req,res,next) => {
 	const { busNumber, availableSeats } = req.body;
 	const bus = await Bus.findOne({busNumber})
 
@@ -42,4 +33,56 @@ const checkSeatsNumber = async (req,res,next) => {
 	next();
 }
 
-export { checkBusOwner, busValidation, checkSeatsNumber }
+const sameSeatNo = (req,res,next) => {
+	const { passengers } = req.body;
+	const seats = passengers.map((passenger) => passenger.seatNo) 
+	const isSame = new Set(seats).size !== seats.length
+	if (isSame){
+		return res.status(401).json({
+			message: "Seat not available,Select different Seats"
+		})
+	}
+	next();
+}
+
+const checkAvailableSeatNos = async (req,res,next) => {
+	try{
+	const { passengers } = req.body
+	const id = req.params.trip_id
+	const trip = await Journey.findById(id)
+	if(!journey){
+		return res.status(404).json({
+			message: 'journey Not Found'
+		})
+	}
+	const num = journey.busNumber
+	const bus = await Bus.findOne({busNumber: num})
+	if(!bus){
+		return res.status(404).json({
+			message: 'Bus Not Found'
+		})
+	}
+	const seatss = passengers.map((p) => p.seatNo)
+	const check = seatss.map((seat) => bus.seats < seat)
+	if(check.includes(true)){
+		return res.status(404).json({
+			message: 'Seats Not Found'
+		})
+	}
+	
+	next();
+	} catch(error){
+		res.status(500).json({
+			message: "Invalid Journey Id"
+		})
+	}
+}
+
+
+
+export
+ { checkBusOwner,
+   checkJourneySeatNo,
+   sameSeatNo,
+   checkAvailableSeatNos
+    }

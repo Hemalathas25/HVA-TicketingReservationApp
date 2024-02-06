@@ -3,9 +3,10 @@ import dotenv from 'dotenv';
 import cookieParser from "cookie-parser";
 dotenv.config();
 import connectDB from "./config/db.js";
-import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+//import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import busRoutes from "./routes/busRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import journeyRoutes from "./routes/journeyRoutes.js";
 const port = process.env.PORT || 5000;
 
 connectDB(); // Connect to MongoDB
@@ -25,9 +26,9 @@ app.get('/', (req, res) => {
 
 app.use('/api/buses', busRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/journey', journeyRoutes);
 
-
-app.use(notFound);
-app.use(errorHandler);
+//app.use(notFound);
+//app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
