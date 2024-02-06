@@ -1,27 +1,41 @@
-import asyncHandler from '../middleware/asyncHandler.js';
 import Bus from '../models/busModel.js';
 
-// @desc   Fetch all buses
-// @route  GET / api/buses
-// @access public
-const getBuses = asyncHandler(async (req, res) => {
-    const buses = await Bus.find({});
-    res.json(buses);
-});
+const addBus = async (user_id, busNumber, seats, busType, amenities) => {
+    const newBus = await Bus.create({
+        user_id, busNumber, seats, busType, amenities
+    });
+    return newBus
+}
 
+const createBus = async (req, res) => {
+    try {
+        const {
+            busNumber, seats, busType, amenities
+        } = req.body
 
-// @desc   Fetch a buses
-// @route  GET / api/trip/:id
-// @access public
-const getTripById = asyncHandler(async (req, res) => {
-    const bus = await Bus.findById(req.params.id);
+        const { error } = busValidation(req.body)
+        if(error){
+        return res.status(400).json({
+           message: error.message
+        })}
+       const user_id = userId(req)
 
-    if(bus){
-       return res.json(bus);
-    }else {
-    res.status(404);
-    throw new Error('Resource not found');
+       const bus = await addBus(user_id, busNumber, seats, busType, amenities)
+
+       res.status(200).json({
+        user_id: bus.user_id,
+        busNumber: bus.busNumber,
+        seats: bus.seats,
+        busType: bus.busType,
+        amenities: bus.amenities
+       })
+
+    } catch (error) {
+        res.status(500).json({ message: "Bus Already Exists"})
     }
-});
+}
 
-export { getBuses, getTripById };
+
+
+
+export { createBus, addBus };

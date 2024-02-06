@@ -5,6 +5,7 @@ import user from "./data/user.js";
 import buses from "./data/buses.js";
 import User from "./models/userModel.js";
 import Bus from "./models/busModel.js";
+import Trip from "./models/tripModel.js";
 
 import connectDB from "./config/db.js";
 
@@ -16,6 +17,7 @@ const importData = async () => {
     try {
         await Bus.deleteMany();
         await User.deleteMany();
+        await Trip.deleteMany();
 
         const createdUser = await User.insertMany(user);
         const adminUser = createdUser[0]._id;
