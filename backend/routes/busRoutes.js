@@ -1,7 +1,8 @@
 import express from 'express';
 const router = express.Router();
-import { getBuses,getTripById } from '../controllers/busController.js';
+import {protect, admin} from '../middleware/authMiddleware.js';
+import { createBus } from '../controllers/busController.js';
 
-router.route('/').get(getBuses);
-router.route('/:id').get(getTripById);
+router.post('/bus', protect, admin, createBus);
+
 export default router;

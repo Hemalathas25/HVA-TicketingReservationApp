@@ -40,4 +40,47 @@ const admin = (req, res, next) => {
     }
 };
 
-export { protect, admin };
+// Get User
+const checkUser = async(req,res,next) => {
+    const user_id = userId(req)
+    const id = req.params.id
+    console.log(user_id, id)
+    try {
+        const user = await User.findById(id);
+        if(!user){
+            return res.status(404).json({
+                message: 'User Not Found'
+            })
+        }
+        if(id === user_id){
+            next();
+        } else {
+            return res.status(404).json({
+                message: "User ID Not Found"
+            })
+        }
+    } catch (error) {
+        return res.status(400).json({
+            message: 'Invalid User ID'
+        })
+    }
+};
+
+// Get user Id
+const userId = (req) => {
+    const token = req.cookies.jwt;
+
+    if (!token) {
+        return null;
+    }
+
+    try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        return decodedToken.userId;
+    } catch (error) {
+        console.log('Error verifying JWT:', error);
+        return null;
+    }
+};
+
+export { protect, admin, userId, checkUser };
