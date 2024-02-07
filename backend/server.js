@@ -7,6 +7,7 @@ import connectDB from "./config/db.js";
 import busRoutes from "./routes/busRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import journeyRoutes from "./routes/journeyRoutes.js";
+import tickbookRoutes from "./routes/tickbookRoutes.js";
 const port = process.env.PORT || 5000;
 
 connectDB(); // Connect to MongoDB
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 app.use('/api/buses', busRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/journey', journeyRoutes);
+app.use('/api/tickbook', tickbookRoutes);
 
 //app.use(notFound);
 //app.use(errorHandler);

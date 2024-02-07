@@ -24,12 +24,12 @@ const newJourney = await Journey.create({
 }
 
 const searchJourney = async(boardingPoint, droppingPoint, date) => {
-    const journey = await journey.find({
-        boardingPoint: {$regex: boardingPoint, $options: 'i'},
-        droppingPoint: {$regex: droppingPoint, $options: 'i'},
+    const journeyy = await Journey.find({
+        boardingPoint: { $regex: boardingPoint, $options: 'i'},
+        droppingPoint: { $regex: droppingPoint, $options: 'i'},
         date: date,
     });
-    return journey;
+    return journeyy;
 }
 
 const checkJourney = async (busNumber, date) => {

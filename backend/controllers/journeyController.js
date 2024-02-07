@@ -63,7 +63,7 @@ const {
         }
     };
 
-    const searchJourney = async (req,res) => {
+    const searchBus = async (req,res) => {
         let boardingPoint = req.query.from;
         let droppingPoint = req.query.to;
         let date = req.query.date;
@@ -71,10 +71,10 @@ const {
         const journey = await searchJourney(boardingPoint, droppingPoint, date)
        
         if (!journey.length) {
-            return res.status(404).json({ message: "No available buses" });
+            return res.status(404).json({ message: "No  buses available" });
         } else {
             return res.status(200).json(journey)
         }
     }
 
-    export { createJourney, getJourneyById, searchJourney }
+    export { createJourney, getJourneyById, searchBus }

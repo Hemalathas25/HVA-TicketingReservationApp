@@ -16,7 +16,7 @@ createJourney
 
 //router.post('/journey', protect, journeyValidation, checkBusOwner, checkJourneySeatNo, createJourney)
 
-router.get('/search', searchValidation, searchJourney)
+router.get('/search', searchValidation, searchBus)
 
 router.get('/:id', getJourneyById)
 
