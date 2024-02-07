@@ -5,4 +5,6 @@ import { createBus } from '../controllers/busController.js';
 
 router.post('/bus', protect, admin, createBus);
 
+
+
 export default router;

@@ -1,5 +1,5 @@
-import Ticket from "../models/tickbookModel";
-import Journey from "../models/journeyModel";
+import Ticket from "../models/tickbookModel.js";
+import Journey from "../models/journeyModel.js";
 
 const findJourney = async (journey_id) => {
     const journey = await Journey.findById(journey_id);
