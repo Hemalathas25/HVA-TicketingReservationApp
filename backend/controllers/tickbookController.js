@@ -6,7 +6,7 @@ import {
         findTicket,
         getTickets, 
         cancel, 
-        UpdateJourneyyPull
+        updateJourneyPull
 }  from "../service/tickbookService.js";
 
 const bookJourney = async (req, res) => {
@@ -32,7 +32,7 @@ const bookJourney = async (req, res) => {
 
         const seatNumbers = passengers.map(passenger => passenger.seatNo);
 
-        const seatExists = await checkSeats(trip_id, seatNumbers)
+        const seatExists = await checkSeats(journey_id, seatNumbers)
 
         if (seatExists) {
             return res.status(400).json({ message: 'Seat already booked' });
@@ -114,7 +114,7 @@ const cancelTicket = async (req, res) => {
 
     try {
         const ticket = await cancel(req.params.id)
-
+        //console.log(ticket)
         if(ticket){
             const seatNumbers = ticket.passengers
             const seatNo = seatNumbers.map(passenger => passenger.seatNo);
@@ -124,10 +124,10 @@ const cancelTicket = async (req, res) => {
                 })
             }
 
-            const journey = await UpdateJourneyyPull(ticket.journey_id, ticket.numberOfSeats, seatNo)
-
+            const journey = await updateJourneyPull(ticket.journey_id, ticket.numberOfSeats, seatNo)
+            console.log(journey)
             if(!journey) {
-            return res.status(404).json({
+                return res.status(404).json({
                     message: "Journey Not Found"
                 })
             }

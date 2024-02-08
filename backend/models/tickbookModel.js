@@ -21,7 +21,7 @@ const ticketSchema = new mongoose.Schema({
         required: true,
         rel: "User"
     },
-    trip_id: {
+    journey_id: {
         type: String,
         required: true,
         rel: "Trip"

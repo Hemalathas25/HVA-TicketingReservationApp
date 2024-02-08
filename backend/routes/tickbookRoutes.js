@@ -6,15 +6,21 @@ import {
     cancelTicket
 } from '../controllers/tickbookController.js';
 
-import { protect } from '../middleware/authMiddleware.js';
+import { protect, checkAuthUser } from '../middleware/authMiddleware.js';
 import { ticketValidation } from '../middleware/validationMiddleware.js';
-//import { checkJourneySeatNo, check } from '../middleware/busMiddleware.js';}
-
+import {sameSeatNo, checkAvailableSeatNos } from "../middleware/busMiddleware.js";
 const router = express.Router();
 
-router.post('/ticket', protect, ticketValidation, bookJourney)
+router.post('/ticket/:journey_id', 
+protect,
+ticketValidation,
+bookJourney,
+sameSeatNo,
+checkAvailableSeatNos)
+
 router.get('/', protect, getAllTickets)
-router.route('/:id').get(protect, getTicketById)
-router.route('/:id').put(protect,cancelTicket)
+router.route('/:id').get(protect, checkAuthUser, getTicketById)
+.put(protect, checkAuthUser, cancelTicket)
+
 
 export default router

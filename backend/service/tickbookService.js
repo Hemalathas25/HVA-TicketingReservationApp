@@ -8,7 +8,7 @@ const findJourney = async (journey_id) => {
 
 const createTicket = async (
   user_id,
-  trip_id,
+  journey_id,
   busNumber,
   bookingDate,
   passengers,
@@ -22,7 +22,7 @@ const createTicket = async (
 ) => {
     const newTicket = await Ticket.create({
         user_id,
-        trip_id,
+        journey_id,
         busNumber,
         bookingDate,
         passengers,
@@ -64,12 +64,13 @@ const createTicket = async (
       
       const cancel = async (id) => {
         const ticket = await Ticket.findById(id);
+        console.log(ticket)
         return ticket
       }
       
-      const UpdateJourneyyPull = async (journey_id, numberOfSeats, seatNo) => {
-        const journey = await Journey.findOneAndUpdate(
-          { _id: journey_id },
+      const updateJourneyPull = async (journey_id, numberOfSeats, seatNo) => {
+        const journey = await Journey.findByIdAndUpdate(
+          { journey_id },
           { $inc: { availableSeats: numberOfSeats }, $pull: { bookedSeats: { $in: seatNo} } },
           { new: true }
         );
@@ -84,5 +85,5 @@ const createTicket = async (
         findTicket,
         getTickets, 
         cancel, 
-        UpdateJourneyyPull
+        updateJourneyPull
      };

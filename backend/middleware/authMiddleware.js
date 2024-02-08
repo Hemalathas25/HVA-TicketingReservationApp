@@ -83,4 +83,25 @@ const userId = (req) => {
     }
 };
 
-export { protect, admin, userId, checkUser };
+// check auth user
+const checkAuthUser = async (req, res, next) => {
+    const user_id = req.user._id;
+    const ticket = req.params.id;
+    // console.log('user_id:', user_id);
+    // console.log('ticket:', ticket);
+    try {
+      const tickets = await Ticket.findById(ticket);
+      if (!tickets) {
+        return res.status(404).json({ message: 'Ticket not found' });
+      }
+      if (tickets.user_id.toString() !== user_id.toString()) {
+        return res.status(404).json({ message: 'User ticket not found' });
+      } else {
+        next();
+      }
+    } catch (error) {
+      return res.status(404).json({ message: 'Invalid Ticket Id' });
+    }
+  };
+
+export { protect, admin, userId, checkUser, checkAuthUser };
