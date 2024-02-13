@@ -76,5 +76,4 @@ const {
             return res.status(200).json(journey)
         }
     }
-
-    export { createJourney, getJourneyById, searchBus }
+export { createJourney, getJourneyById, searchBus }

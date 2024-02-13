@@ -1,6 +1,6 @@
 import { createJourney, getJourneyById, searchBus } from '../controllers/journeyController.js';
 import * as journeyService from '../service/journeyService.js';
-import * as validationMiddleware from '../middleWare/validationMiddleWare.js';
+import * as validationMiddleware from '../middleware/validationMiddleware.js';
 
 jest.mock('../service/journeyService.js');
 jest.mock('../middleWare/validationMiddleWare.js');

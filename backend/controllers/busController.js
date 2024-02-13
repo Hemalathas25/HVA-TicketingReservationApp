@@ -36,8 +36,4 @@ const createBus = async (req, res) => {
         res.status(500).json({ message: "Bus Already Exists"})
     }
 }
-
-
-
-
 export { createBus, addBus };
