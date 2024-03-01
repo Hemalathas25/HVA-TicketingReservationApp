@@ -1,9 +1,11 @@
 import React from 'react'
+import Footer from "./components/footer.jsx";
 
 const App = () => {
   return (
-    <h1>HyperVerge Express</h1>
+    <>
+    <Footer />
+    </>
   )
 }
-
 export default App;
