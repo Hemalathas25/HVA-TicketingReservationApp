@@ -5,7 +5,7 @@ import { FaUser } from 'react-icons/fa';
 const Header = () => {
   return (
     <header>
-        <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>
+        <Navbar bg="cream" variant='cream' expand="md" collapseOnSelect>
         <Container>
             <Navbar.Brand href="/">HyperVerge Express</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

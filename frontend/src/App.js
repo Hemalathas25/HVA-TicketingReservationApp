@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container } from "react-bootstrap";
-import Header from './components/Header';
+import Header from './components/Header.jsx';
+import Footer from './components/Footer.jsx';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
        <h1> welcome </h1>
     </Container>
     </main>
+    <Footer />
     </>
   );
 }
