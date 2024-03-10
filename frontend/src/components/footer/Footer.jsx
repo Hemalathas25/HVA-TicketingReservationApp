@@ -1,4 +1,4 @@
-import  React from 'react'
+/* import  React from 'react'
 import { Row, Col } from "react-bootstrap";
 
 const Footer = () => {
@@ -13,6 +13,5 @@ const Footer = () => {
     </Row>
    </footer>
   )
-}
-
-export default Footer
+} 
+export default Footer */
